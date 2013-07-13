@@ -1,0 +1,35 @@
+<html>
+	<head>
+
+		<script>
+			function getGeo(json) {
+				// The URL you want to forward them to
+				var forward = 'http://example.org/';
+
+				// Add stuff here to forward by IP, City, etc.
+				var ip_addresses = [];
+				var cities = ['Seattle', 'Olympia'];
+				var states = ['OR'];
+
+				if (
+					// If we're not at the destination
+					(document.URL != forward) &&
+
+					// and at least one of the rules matches
+					(
+						ip_addresses.indexOf(json.geoplugin_request) != -1 ||
+						cities.indexOf(json.geoplugin_city) != -1 ||
+						states.indexOf(json.geoplugin_region) != -1
+					)
+				) {
+					// Forward the browser to the destination
+					window.location = forward;
+				}
+			}
+		</script>
+		<script type="application/javascript" src="http://www.geoplugin.net/json.gp?jsoncallback=getGeo"></script>
+
+	</head>
+	<body>
+	</body>
+</html>
