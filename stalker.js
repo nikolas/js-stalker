@@ -38,7 +38,7 @@ function jsStalkerGet(json) {
 	 * here: http://www.shroomery.org/ythan/proxycheck.php. Go here for more
 	 * info: http://www.shroomery.org/ythan/proxyblock.php
 	 */
-	if (stalker.block_proxies) {
+	if (stalker.proxies) {
 		$.ajax({
 			url: 'http://4gods.nl/~nik/proxyblock.php',
 			type: 'GET',
