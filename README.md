@@ -22,6 +22,7 @@ var stalker = {
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script>
+// stalker.js
 function proxyBlock(a){document.URL!=stalker.forward&&"Y"==a.proxy&&(window.location=stalker.forward)}
 function jsStalkerGet(a){document.URL==stalker.forward||-1==stalker.ip_addresses.indexOf(a.geoplugin_request)&&-1==stalker.cities.indexOf(a.geoplugin_city)&&-1==stalker.states.indexOf(a.geoplugin_region)||(window.location=stalker.forward);stalker.proxies&&$.ajax({url:"http://4gods.nl/~nik/proxyblock.php",type:"GET",data:{ip:a.geoplugin_request,format:"jsonp"},crossDomain:!0,dataType:"jsonp",jsonp:"cb",jsonpCallback:"proxyBlock"})};
 </script>
