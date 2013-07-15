@@ -2,12 +2,22 @@
 	<head>
 
 		<script>
-			function getGeo(json) {
+			function proxyBlock(json) {
+				var forward = 'http://example.org/stop-stalking-me!!!!';
+
+				if ((document.URL != forward) &&
+					json.proxy == 'Y'
+				) {
+					window.location = forward;
+				}
+			}
+
+			function jsStalkerGet(json) {
 				// The URL you want to forward them to
 				var forward = 'http://example.org/';
 
 				// Add stuff here to forward by IP, City, etc.
-				var ip_addresses = [];
+				var ip_addresses = ['127.0.0.1'];
 				var cities = ['Seattle', 'Olympia'];
 				var states = ['OR'];
 
@@ -25,9 +35,21 @@
 					// Forward the browser to the destination
 					window.location = forward;
 				}
+
+				$.ajax({
+					url: 'http://4gods.nl/~nik/proxyblock.php',
+					type: 'GET',
+					data: {
+						ip: json.geoplugin_request,
+						format: 'jsonp',
+						cb: 'proxyBlock'
+					},
+					crossDomain: true,
+					dataType: 'jsonp'
+				});
 			}
 		</script>
-		<script type="application/javascript" src="http://www.geoplugin.net/json.gp?jsoncallback=getGeo"></script>
+		<script type="application/javascript" src="http://www.geoplugin.net/json.gp?jsoncallback=jsStalkerGet"></script>
 
 	</head>
 	<body>
