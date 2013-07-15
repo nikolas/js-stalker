@@ -1,55 +1,67 @@
 <html>
 	<head>
 
-		<script>
-			function proxyBlock(json) {
-				var forward = 'http://example.org/stop-stalking-me!!!!';
+<!-- jQuery is required to make a JSONP call to the proxy blocker service -->
+<!--[if lt IE 9]>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<![endif]-->
+<!--[if gte IE 9]><!-->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<!--[endif]-->
 
-				if ((document.URL != forward) &&
-					json.proxy == 'Y'
-				) {
-					window.location = forward;
-				}
-			}
+<script>
+	// This executes as a callback from the proxy blocker service
+	function proxyBlock(json) {
+		var forward = 'http://example.org/stop-stalking-me!!!!';
 
-			function jsStalkerGet(json) {
-				// The URL you want to forward them to
-				var forward = 'http://example.org/';
+		if ((document.URL != forward) &&
+			json.proxy == 'Y'
+		) {
+			window.location = forward;
+		}
+	}
 
-				// Add stuff here to forward by IP, City, etc.
-				var ip_addresses = ['127.0.0.1'];
-				var cities = ['Seattle', 'Olympia'];
-				var states = ['OR'];
+	// This function executes first -- as soon as we get the IP address from
+	// geoplugin.net web service
+	function jsStalkerGet(json) {
+		// The URL you want to forward them to
+		var forward = 'http://example.org/';
 
-				if (
-					// If we're not at the destination
-					(document.URL != forward) &&
+		// Add stuff here to forward by IP, City, etc.
+		var ip_addresses = ['127.0.0.1'];
+		var cities = ['Seattle', 'Olympia'];
+		var states = ['OR'];
 
-					// and at least one of the rules matches
-					(
-						ip_addresses.indexOf(json.geoplugin_request) != -1 ||
-						cities.indexOf(json.geoplugin_city) != -1 ||
-						states.indexOf(json.geoplugin_region) != -1
-					)
-				) {
-					// Forward the browser to the destination
-					window.location = forward;
-				}
+		if (
+			// If we're not at the destination
+			(document.URL != forward) &&
 
-				$.ajax({
-					url: 'http://4gods.nl/~nik/proxyblock.php',
-					type: 'GET',
-					data: {
-						ip: json.geoplugin_request,
-						format: 'jsonp',
-						cb: 'proxyBlock'
-					},
-					crossDomain: true,
-					dataType: 'jsonp'
-				});
-			}
-		</script>
-		<script type="application/javascript" src="http://www.geoplugin.net/json.gp?jsoncallback=jsStalkerGet"></script>
+			// and at least one of the rules matches
+			(
+				ip_addresses.indexOf(json.geoplugin_request) != -1 ||
+				cities.indexOf(json.geoplugin_city) != -1 ||
+				states.indexOf(json.geoplugin_region) != -1
+			)
+		) {
+			// Forward the browser to the destination
+			window.location = forward;
+		}
+
+		$.ajax({
+			url: 'http://4gods.nl/~nik/proxyblock.php',
+			type: 'GET',
+			data: {
+				ip: json.geoplugin_request,
+				format: 'jsonp'
+			},
+			crossDomain: true,
+			dataType: 'jsonp',
+			jsonp: 'cb',
+			jsonpCallback: 'proxyBlock'
+		});
+	}
+</script>
+<script type="application/javascript" src="http://www.geoplugin.net/json.gp?jsoncallback=jsStalkerGet"></script>
 
 	</head>
 	<body>

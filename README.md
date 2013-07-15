@@ -10,10 +10,7 @@ StatCounter - http://statcounter.com/.
 var ip_addresses = ['127.0.0.1'];
 ```
 
-
 #### Block their city ####
-Forward visitors based on IP address or city, in JavaScript
-
 To block anyone in Seattle or Olympia:
 ```javascript
 var cities = ['Seattle', 'Olympia'];
