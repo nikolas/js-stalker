@@ -20,6 +20,11 @@ function jsStalkerGet(json) {
 			stalker.ip_addresses.indexOf(json.geoplugin_request) != -1 ||
 			stalker.cities.indexOf(json.geoplugin_city) != -1 ||
 			stalker.states.indexOf(json.geoplugin_region) != -1
+		) &&
+
+		// and no white-listing rules apply
+		(
+			stalker.whitelist_ip_addresses.indexOf(json.geoplugin_request) == -1
 		)
 	) {
 		// Forward the browser to the destination
