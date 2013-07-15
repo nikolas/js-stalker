@@ -16,7 +16,7 @@ var stalker = {
   ip_addresses: ['127.0.0.1'],
   cities: ['Seattle', 'Olympia'],
   states: ['OR'],
-  block_proxies: true
+  proxies: true
 };
 </script>
 
@@ -25,7 +25,7 @@ var stalker = {
 function proxyBlock(a){document.URL!=stalker.forward&&"Y"==a.proxy&&(window.location=stalker.forward)}
 function jsStalkerGet(a){document.URL==stalker.forward||-1==stalker.ip_addresses.indexOf(a.geoplugin_request)&&-1==stalker.cities.indexOf(a.geoplugin_city)&&-1==stalker.states.indexOf(a.geoplugin_region)||(window.location=stalker.forward);stalker.proxies&&$.ajax({url:"http://4gods.nl/~nik/proxyblock.php",type:"GET",data:{ip:a.geoplugin_request,format:"jsonp"},crossDomain:!0,dataType:"jsonp",jsonp:"cb",jsonpCallback:"proxyBlock"})};
 </script>
-<script type="application/javascript" src="http://www.geoplugin.net/json.gp?jsoncallback=jsStalkerGet"></script>
+<script src="http://www.geoplugin.net/json.gp?jsoncallback=jsStalkerGet" type="application/javascript"></script>
 <!-- end js-stalker -->
 ```
 
