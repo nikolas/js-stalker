@@ -6,7 +6,7 @@ stalker to get around it, they can just disable JavaScript in their browser.
 Hopefully they don't figure that out.
 
 ### How to block people on Tumblr ###
-Paste this code after the `<head>` tag:
+Click "Edit HTML" in the theme customizer. Paste this code after the `<head>` tag:
 ```html
 <!-- js-stalker code -- https://github.com/nikolas/js-stalker -->
 <script>
