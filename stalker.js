@@ -23,9 +23,9 @@ function jsStalkerGet(json) {
 
 		// and at least one of the rules matches
 		(
-			stalker_ip_addresses.indexOf(json.geoplugin_request) != -1 ||
-			stalker_cities.indexOf(json.geoplugin_city) != -1 ||
-			stalker_states.indexOf(json.geoplugin_region) != -1
+			stalker.ip_addresses.indexOf(json.geoplugin_request) != -1 ||
+			stalker.cities.indexOf(json.geoplugin_city) != -1 ||
+			stalker.states.indexOf(json.geoplugin_region) != -1
 		)
 	) {
 		// Forward the browser to the destination
@@ -38,16 +38,18 @@ function jsStalkerGet(json) {
 	 * here: http://www.shroomery.org/ythan/proxycheck.php. Go here for more
 	 * info: http://www.shroomery.org/ythan/proxyblock.php
 	 */
-	$.ajax({
-		url: 'http://4gods.nl/~nik/proxyblock.php',
-		type: 'GET',
-		data: {
-			ip: json.geoplugin_request,
-			format: 'jsonp'
-		},
-		crossDomain: true,
-		dataType: 'jsonp',
-		jsonp: 'cb',
-		jsonpCallback: 'proxyBlock'
-	});
+	if (stalker.block_proxies) {
+		$.ajax({
+			url: 'http://4gods.nl/~nik/proxyblock.php',
+			type: 'GET',
+			data: {
+				ip: json.geoplugin_request,
+				format: 'jsonp'
+			},
+			crossDomain: true,
+			dataType: 'jsonp',
+			jsonp: 'cb',
+			jsonpCallback: 'proxyBlock'
+		});
+	}
 }

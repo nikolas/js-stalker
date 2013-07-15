@@ -11,9 +11,12 @@
 
 		<script>
 			// Add stuff here to forward by IP, City, etc.
-			var stalker_ip_addresses = ['127.0.0.1'];
-			var stalker_cities = ['Seattle', 'Olympia'];
-			var stalker_states = ['OR'];
+			var stalker = {
+				ip_addresses: ['127.0.0.1'],
+				cities: ['Seattle', 'Olympia'],
+				states: ['OR'],
+				block_proxies: true
+			};
 		</script>
 
 		<script src="stalker.js"></script>
