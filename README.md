@@ -23,5 +23,5 @@ var stalker = { cities: ['Seattle', 'Olympia'] };
 js-stalker can block users that are suspected of using an anonymous proxy like
 Tor or hidemyass.com.
 ```javascript
-var stalker = { proxies = true };
+var stalker = { proxies: true };
 ```
