@@ -3,7 +3,8 @@ js-stalker
 If someone is stalking you on your website, here's what you do. This method is
 all in JavaScript so it works on Tumblr. Of course.. that means that for a
 stalker to get around it, they can just disable JavaScript in their browser.
-Hopefully they don't figure that out.
+To prevent that, hide the `<body>` element with CSS, and show that element when
+JavaScript is loaded.
 
 ### How to block people on Tumblr ###
 Click "Edit HTML" in the theme customizer. Paste this code after the `<head>` tag:
