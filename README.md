@@ -5,7 +5,7 @@ all in JavaScript so it works on Tumblr. Of course.. that means that for a
 stalker to get around it, they can just disable JavaScript in their browser.
 Hopefully they don't figure that out.
 
-### How to use this on Tumblr ###
+### How to block people on Tumblr ###
 Paste this code after the `<head>` tag:
 ```html
 <!-- js-stalker code -- https://github.com/nikolas/js-stalker -->
