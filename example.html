@@ -1,74 +1,23 @@
 <html>
 	<head>
 
-<!-- jQuery is required to make a JSONP call to the proxy blocker service -->
-<!--[if lt IE 9]>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<![endif]-->
-<!--[if gte IE 9]><!-->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-<!--[endif]-->
+		<!-- jQuery is required to make a JSONP call to the proxy blocker service -->
+		<!--[if lt IE 9]>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<![endif]-->
+		<!--[if gte IE 9]><!-->
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+		<!--[endif]-->
 
-<script>
-	// This executes as a callback from the proxy blocker service
-	function proxyBlock(json) {
-		// Forward stalkers using anonymous proxies to this address:
-		var forward = 'http://example.org/stop-stalking-me!!!!';
+		<script>
+			// Add stuff here to forward by IP, City, etc.
+			var stalker_ip_addresses = ['127.0.0.1'];
+			var stalker_cities = ['Seattle', 'Olympia'];
+			var stalker_states = ['OR'];
+		</script>
 
-		if ((document.URL != forward) &&
-			json.proxy == 'Y'
-		) {
-			window.location = forward;
-		}
-	}
-
-	// This function executes first -- as soon as we get the IP address from
-	// geoplugin.net web service
-	function jsStalkerGet(json) {
-		// The URL you want to forward IP and location-based stalkers to
-		var forward = 'http://example.org/stop-stalking-me!!!!';
-
-		// Add stuff here to forward by IP, City, etc.
-		var ip_addresses = ['127.0.0.1'];
-		var cities = ['Seattle', 'Olympia'];
-		var states = ['OR'];
-
-		if (
-			// If we're not at the destination
-			(document.URL != forward) &&
-
-			// and at least one of the rules matches
-			(
-				ip_addresses.indexOf(json.geoplugin_request) != -1 ||
-				cities.indexOf(json.geoplugin_city) != -1 ||
-				states.indexOf(json.geoplugin_region) != -1
-			)
-		) {
-			// Forward the browser to the destination
-			window.location = forward;
-		}
-
-		// Call the proxy blocker
-		/* This JSONP call connects to my JSONP proxy
-		 * (http://4gods.nl/~nik/proxyblock.php) of the Black Box proxy blocker
-		 * here: http://www.shroomery.org/ythan/proxycheck.php. Go here for more
-		 * info: http://www.shroomery.org/ythan/proxyblock.php
-		 */
-		$.ajax({
-			url: 'http://4gods.nl/~nik/proxyblock.php',
-			type: 'GET',
-			data: {
-				ip: json.geoplugin_request,
-				format: 'jsonp'
-			},
-			crossDomain: true,
-			dataType: 'jsonp',
-			jsonp: 'cb',
-			jsonpCallback: 'proxyBlock'
-		});
-	}
-</script>
-<script type="application/javascript" src="http://www.geoplugin.net/json.gp?jsoncallback=jsStalkerGet"></script>
+		<script src="stalker.js"></script>
+		<script type="application/javascript" src="http://www.geoplugin.net/json.gp?jsoncallback=jsStalkerGet"></script>
 
 	</head>
 	<body>
