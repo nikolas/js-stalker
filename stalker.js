@@ -1,25 +1,19 @@
 // This executes as a callback from the proxy blocker service
 function proxyBlock(json) {
-	// Forward stalkers using anonymous proxies to this address:
-	var forward = 'http://example.org/stop-stalking-me!!!!';
-
-	if ((document.URL != forward) &&
+	if ((document.URL != stalker.forward) &&
 		json.proxy == 'Y'
 	) {
-		window.location = forward;
+		window.location = stalker.forward;
 	}
 }
 
 // This function executes first -- as soon as we get the IP address from
 // geoplugin.net web service
 function jsStalkerGet(json) {
-	// The URL you want to forward IP and location-based stalkers to
-	var forward = 'http://example.org/stop-stalking-me!!!!';
-
 
 	if (
 		// If we're not at the destination
-		(document.URL != forward) &&
+		(document.URL != stalker.forward) &&
 
 		// and at least one of the rules matches
 		(
@@ -29,7 +23,7 @@ function jsStalkerGet(json) {
 		)
 	) {
 		// Forward the browser to the destination
-		window.location = forward;
+		window.location = stalker.forward;
 	}
 
 	// Call the proxy blocker
