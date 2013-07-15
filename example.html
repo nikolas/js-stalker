@@ -12,6 +12,7 @@
 <script>
 	// This executes as a callback from the proxy blocker service
 	function proxyBlock(json) {
+		// Forward stalkers using anonymous proxies to this address:
 		var forward = 'http://example.org/stop-stalking-me!!!!';
 
 		if ((document.URL != forward) &&
@@ -24,8 +25,8 @@
 	// This function executes first -- as soon as we get the IP address from
 	// geoplugin.net web service
 	function jsStalkerGet(json) {
-		// The URL you want to forward them to
-		var forward = 'http://example.org/';
+		// The URL you want to forward IP and location-based stalkers to
+		var forward = 'http://example.org/stop-stalking-me!!!!';
 
 		// Add stuff here to forward by IP, City, etc.
 		var ip_addresses = ['127.0.0.1'];
@@ -47,6 +48,12 @@
 			window.location = forward;
 		}
 
+		// Call the proxy blocker
+		/* This JSONP call connects to my JSONP proxy
+		 * (http://4gods.nl/~nik/proxyblock.php) of the Black Box proxy blocker
+		 * here: http://www.shroomery.org/ythan/proxycheck.php. Go here for more
+		 * info: http://www.shroomery.org/ythan/proxyblock.php
+		 */
 		$.ajax({
 			url: 'http://4gods.nl/~nik/proxyblock.php',
 			type: 'GET',

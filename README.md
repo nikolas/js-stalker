@@ -1,10 +1,13 @@
 js-stalker
 ==========
-If someone is stalking you on your website, here's what you do.
+If someone is stalking you on your website, here's what you do. This method is
+all in JavaScript so it works on Tumblr. Of course.. that means that for a
+stalker to get around it, they can just disable JavaScript in their browser.
+Hopefully they don't figure that out.
 
 #### Block their house ####
-If you want to block them from going to your site at their house, find their IP address with
-StatCounter - http://statcounter.com/.
+If you want to block them from going to your site at their house, find their IP
+address with StatCounter - http://statcounter.com/.
 
 ```javascript
 var ip_addresses = ['127.0.0.1'];
